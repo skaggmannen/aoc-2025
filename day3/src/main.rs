@@ -29,6 +29,7 @@ fn find_combination(s: &str, count: usize) -> String {
         // Nope, so just return the rest of the string.
         return s.to_string();
     } else if count == 0 {
+        // We have already found all digits.
         return "".to_string();
     }
 
