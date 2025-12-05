@@ -26,6 +26,7 @@ fn part2(input: &str) -> String {
 
     let mut fresh = parse_fresh(parts.next().unwrap());
 
+    // Sort the range so we can scan through them in order.
     fresh.sort_by(|a, b| a.start.cmp(&b.start));
 
     let mut curr = 0;
@@ -33,14 +34,19 @@ fn part2(input: &str) -> String {
 
     for r in fresh {
         if curr > r.end {
+            // We have already counted this range.
             continue;
         }
 
+        // Either we have already counted some IDs in this range, or we
+        // should skip ahead to the first one in the range.
         let start = max(curr, r.start);
         if start < r.end {
+            // There are some numbers of this range we havent counted yet.
             res += r.end - start
         }
 
+        // Remember the last ID until the next iteration.
         curr = r.end;
     }
 
